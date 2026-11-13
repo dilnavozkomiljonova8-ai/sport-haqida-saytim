@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportOlami — Sport va Sog'lom Turmush Tarzi Portali</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 font-sans antialiased transition-colors duration-300">
+
+    <!-- Navigatsiya Paneli (Navbar) -->
+    <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2 group">
+                    <div class="w-10 h-10 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-bolt text-xl"></i>
+                    </div>
+                    <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-emerald-600 to-teal-500 bg-clip-text text-transparent">
+                        SportOlami
+                    </span>
+                </a>
+
+                <!-- Desktop Menyu -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#sport-turlari" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Sport turlari</a>
+                    <a href="#yangiliklar" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Yangiliklar</a>
+                    <a href="#maslahatlar" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Maslahatlar</a>
+                    <a href="#kalkulyator" class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">BMI va Kaloriya</a>
+                </nav>
+
+                <!-- O'ng tugmalar (Tema va Mobil menyu) -->
+                <div class="flex items-center space-x-3">
+                    <button id="theme-toggle" aria-label="Mavzuni o'zgartirish" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                        <i id="theme-icon" class="fa-solid fa-moon"></i>
+                    </button>
+                    <a href="#kalkulyator" class="hidden sm:inline-flex items-center px-4 py-2 rounded-xl text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md shadow-emerald-600/20 transition-all">
+                        Sog'liqni tekshirish
+                    </a>
+                    <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobil Menyu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-4 space-y-2">
+            <a href="#sport-turlari" class="block px-3 py-2 rounded-xl text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Sport turlari</a>
+            <a href="#yangiliklar" class="block px-3 py-2 rounded-xl text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Yangiliklar</a>
+            <a href="#maslahatlar" class="block px-3 py-2 rounded-xl text-base font-medium hover:bg-slate-100 dark:hover:bg-slate-800">Maslahatlar</a>
+            <a href="#kalkulyator" class="block px-3 py-2 rounded-xl text-base font-medium text-emerald-600 dark:text-emerald-400 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800">BMI va Kaloriya kalkulyatori</a>
+        </div>
+    </header>
+
+    <!-- Asosiy Banner (Hero Section) -->
+    <section class="relative overflow-hidden bg-slate-900 text-white py-20 lg:py-28">
+        <!-- Fon dekoratsiyasi -->
+        <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1920&q=80" 
+                 onerror="this.src='https://placehold.co/1920x1080/0f172a/10b981?text=Sport+Olami'" 
+                 alt="Sport foni" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/90 to-emerald-950/70"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span>Harakat — bu hayot demakdir</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
+                        Kuchli tana, <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">sog'lom aql</span> va cheksiz g'alabalar!
+                    </h1>
+                    <p class="text-lg text-slate-300 max-w-2xl leading-relaxed">
+                        Eng so'nggi sport yangiliklari, mashhur sport turlari sirlari, professional mashg'ulot maslahatlari va shaxsiy salomatlik ko'rsatkichlaringizni hisoblash platformasi.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#sport-turlari" class="px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold shadow-lg shadow-emerald-500/25 transition-all flex items-center space-x-2">
+                            <span>Sport turlarini o'rganish</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#kalkulyator" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/15 text-white font-semibold transition-all flex items-center space-x-2">
+                            <i class="fa-solid fa-calculator text-emerald-400"></i>
+                            <span>BMI Kalkulyator</span>
+                        </a>
+                    </div>
+
+                    <!-- Statistika -->
+                    <div class="grid grid-cols-3 gap-6 pt-8 border-t border-slate-800 max-w-lg">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-white">5+</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Asosiy sport turi</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">100%</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Foydali maslahatlar</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-white">24/7</div>
+                            <div class="text-xs sm:text-sm text-slate-400">Jonli yangiliklar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero O'ng Karta -->
+                <div class="lg:col-span-5 hidden lg:block">
+                    <div class="relative rounded-3xl overflow-hidden border border-slate-700/60 shadow-2xl bg-slate-800/50 backdrop-blur-md p-6 space-y-5">
+                        <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x500/1e293b/10b981?text=Sport+Energia'" 
+                             alt="Futbol" class="w-full h-64 object-cover rounded-2xl">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-semibold text-emerald-400 uppercase">Kun tavsiyasi</span>
+                                <h3 class="text-lg font-bold text-white mt-0.5">Har kuni kamida 30 daqiqa faol harakat qiling</h3>
+                            </div>
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mashhur Sport Turlari Bo'limi -->
+    <section id="sport-turlari" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <span class="text-emerald-600 dark:text-emerald-400 font-semibold text-sm uppercase tracking-wider">Yo'nalishlar</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-1">Mashhur sport turlari</h2>
+                <p class="text-slate-600 dark:text-slate-400 mt-2 max-w-2xl">Dunyoda va O'zbekistonda eng ko'p seviladigan sport turlari haqida batafsil ma'lumot oling.</p>
+            </div>
+            
+            <!-- Filtrlash tugmalari -->
+            <div class="flex flex-wrap gap-2" id="sport-filters">
+                <button data-filter="all" class="filter-btn active px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-600 text-white transition-all">Barchasi</button>
+                <button data-filter="jamoaviy" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">Jamoaviy</button>
+                <button data-filter="yakka" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">Yakka kurash / Individual</button>
+                <button data-filter="aqliy" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all">Aqliy sport</button>
+            </div>
+        </div>
+
+        <!-- Kartochkalar Gridi -->
+        <div id="sports-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- JavaScript orqali dinamik ravishda to'ldiriladi -->
+        </div>
+    </section>
+
+    <!-- Sport Yangiliklari Bo'limi -->
+    <section id="yangiliklar" class="py-20 bg-slate-100 dark:bg-slate-800/50 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-14">
+                <span class="text-emerald-600 dark:text-emerald-400 font-semibold text-sm uppercase tracking-wider">So'nggi xabarlar</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-1">Sport yangiliklari</h2>
+                <p class="text-slate-600 dark:text-slate-400 mt-2">O'zbekiston va jahon sport maydonlaridagi eng muhim voqealar sharhi.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Yangilik 1 -->
+                <article class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 dark:border-slate-800 transition-all duration-300 flex flex-col">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x500/059669/ffffff?text=Futbol+Yangiliklari'" 
+                             alt="Futbol" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-lg bg-emerald-600 text-white text-xs font-bold">Futbol</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-slate-500 dark:text-slate-400 space-x-2 mb-2">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>13-noyabr, 2026</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                                O'zbekiston milliy terma jamoasi muhim uchrashuv oldidan tayyorgarlikni yakunladi
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                Bosh murabbiy boshchiligidagi futbolchilarimiz Toshkentdagi o'quv-mashg'ulot yig'inida taktik sxemalarni sinovdan o'tkazishdi.
+                            </p>
+                        </div>
+                        <button onclick="openModal('O\'zbekiston milliy terma jamoasi tayyorgarligi', 'Futbol bo\'yicha O\'zbekiston milliy terma jamoasi hal qiluvchi saralash bahslari oldidan barcha yetakchi legionerlar ishtirokida mashg\'ulot o\'tkazdi. Jamoa shifokorlarining ta\'kidlashicha, barcha futbolchilar optimal sport formasida va o\'yinga to\'liq tayyor.')" 
+                                class="mt-5 inline-flex items-center text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                            <span>Batafsil o'qish</span>
+                            <i class="fa-solid fa-chevron-right ml-1.5 text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Yangilik 2 -->
+                <article class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 dark:border-slate-800 transition-all duration-300 flex flex-col">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x500/0284c7/ffffff?text=Boks+Chempionati'" 
+                             alt="Boks" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-lg bg-rose-600 text-white text-xs font-bold">Boks</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-slate-500 dark:text-slate-400 space-x-2 mb-2">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>12-noyabr, 2026</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                                O'zbek bokschilari xalqaro turnirda umumjamoa hisobida birinchi o'rinni egalladi
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                Charm qo'lqop ustalarimiz 6 ta oltin, 3 ta kumush va 2 ta bronza medalini qo'lga kiritib, yuksak natija qayd etishdi.
+                            </p>
+                        </div>
+                        <button onclick="openModal('O\'zbek bokschilarining navbatdagi zafari', 'Nufuzli xalqaro boks musobaqasida ishtirok etgan terma jamoamiz a\'zolari final janglarida yorqin g\'alabalarga erishishdi. Mutaxassislar o\'zbek boks maktabining texnik va jismoniy ustunligini alohida e\'tirof etishmoqda.')" 
+                                class="mt-5 inline-flex items-center text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                            <span>Batafsil o'qish</span>
+                            <i class="fa-solid fa-chevron-right ml-1.5 text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- Yangilik 3 -->
+                <article class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200/80 dark:border-slate-800 transition-all duration-300 flex flex-col">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=800&q=80" 
+                             onerror="this.src='https://placehold.co/800x500/d97706/ffffff?text=Shaxmat+Olimpiadasi'" 
+                             alt="Shaxmat" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded-lg bg-amber-600 text-white text-xs font-bold">Shaxmat</span>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center text-xs text-slate-500 dark:text-slate-400 space-x-2 mb-2">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>10-noyabr, 2026</span>
+                            </div>
+                            <h3 class="text-xl font-bold mb-3 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                                Yosh grossmeysterlarimiz jahon reytingida o'z o'rinlarini mustahkamlashdi
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                FIDE tomonidan e'lon qilingan yangilangan reyting jadvalida o'zbekistonlik shaxmatchilar kuchli yigirmatalikdan joy oldi.
+                            </p>
+                        </div>
+                        <button onclick="openModal('Shaxmat bo\'yicha yangi FIDE reytingi', 'Xalqaro shaxmat federatsiyasi (FIDE) yangi reyting ko\'rsatkichlarini e\'lon qildi. O\'zbekistonlik yosh grossmeysterlar so\'nggi super-turnirlardagi muvaffaqiyatli ishtiroki evaziga o\'z ochkolarini sezilarli darajada oshirishga muvaffaq bo\'lishdi.')" 
+                                class="mt-5 inline-flex items-center text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:underline">
+                            <span>Batafsil o'qish</span>
+                            <i class="fa-solid fa-chevron-right ml-1.5 text-xs"></i>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sog'lom Turmush Tarzi va Maslahatlar Bo'limi -->
+    <section id="maslahatlar" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+            <span class="text-emerald-600 dark:text-emerald-400 font-semibold text-sm uppercase tracking-wider">Salomatlik sirlari</span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold mt-1">Sog'lom turmush tarzi va mashg'ulotlar</h2>
+            <p class="text-slate-600 dark:text-slate-400 mt-2">Mashg'ulotlardan maksimal natija olish va doimo tetik yurish uchun oltin qoidalar.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Maslahat 1 -->
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Suv balansi</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Mashg'ulot davomida va kun davomida tana vaznining har bir kilogrammiga 30-35 ml toza suv ichishni unutmang.
+                </p>
+            </div>
+
+            <!-- Maslahat 2 -->
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-apple-whole"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">To'g'ri ovqatlanish</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Ratsioningizda oqsillar, murakkab uglevodlar va foydali yog'lar muvozanatini saqlang. Fast-fud va shirinliklarni cheklang.
+                </p>
+            </div>
+
+            <!-- Maslahat 3 -->
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-person-running"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Chigil yozdi (Razminka)</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Har qanday jismoniy mashqdan oldin 10-15 daqiqa bo'g'im va mushaklarni qizdirish jarohatlarning oldini oladi.
+                </p>
+            </div>
+
+            <!-- Maslahat 4 -->
+            <div class="p-6 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-emerald-500 transition-all group">
+                <div class="w-12 h-12 rounded-xl bg-purple-100 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-bed"></i>
+                </div>
+                <h3 class="text-lg font-bold mb-2">Sifatli uyqu</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    Mushaklar tiklanishi va organizm quvvat yig'ishi uchun sutkasiga kamida 7-8 soat tinch uxlash zarur.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interaktiv BMI va Kunlik Kaloriya Kalkulyatori -->
+    <section id="kalkulyator" class="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">Interaktiv vosita</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">BMI va Kunlik Kaloriya Kalkulyatori</h2>
+                <p class="text-slate-300 mt-2 max-w-xl mx-auto">Bo'yingiz, vazningiz va faollik darajangizni kiriting — tana vazni indeksi hamda kunlik energiya me'yoringizni darhol bilib oling.</p>
+            </div>
+
+            <div class="bg-white/10 backdrop-blur-lg border border-white/15 rounded-3xl p-6 sm:p-10 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <!-- Kiritish Formasi -->
+                    <form id="health-form" class="lg:col-span-7 space-y-5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-300 mb-1.5">Jinsingiz</label>
+                                <select id="gender" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-white focus:outline-none focus:border-emerald-500">
+                                    <option value="male">Erkak</option>
+                                    <option value="female">Ayol</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="age" class="block text-sm font-medium text-slate-300 mb-1.5">Yoshingiz</label>
+                                <input type="number" id="age" min="10" max="100" value="25" required
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="height" class="block text-sm font-medium text-slate-300 mb-1.5">Bo'yingiz (sm)</label>
+                                <input type="number" id="height" min="100" max="250" value="175" required
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                            <div>
+                                <label for="weight" class="block text-sm font-medium text-slate-300 mb-1.5">Vazningiz (kg)</label>
+                                <input type="number" id="weight" min="30" max="250" value="70" required
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-white focus:outline-none focus:border-emerald-500">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="activity" class="block text-sm font-medium text-slate-300 mb-1.5">Jismoniy faollik darajasi</label>
+                            <select id="activity" class="w-full px-4 py-3 rounded-xl bg-slate-900/80 border border-slate-700 text-white focus:outline-none focus:border-emerald-500">
+                                <option value="1.2">Kamharakat (ofis ishi, mashg'ulotsiz)</option>
+                                <option value="1.375">Yengil faollik (haftasiga 1-3 marta sport)</option>
+                                <option value="1.55" selected>O'rtacha faollik (haftasiga 3-5 marta sport)</option>
+                                <option value="1.725">Yuqori faollik (haftasiga 6-7 marta mashg'ulot)</option>
+                                <option value="1.9">Professional sportchi (kuniga 2 marta mashg'ulot)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full py-3.5 px-6 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-base shadow-lg shadow-emerald-500/25 transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-calculator"></i>
+                            <span>Hisoblash</span>
+                        </button>
+                    </form>
+
+                    <!-- Natijalar Bloki -->
+                    <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-slate-700/80 space-y-6">
+                        <div class="text-center pb-5 border-b border-slate-800">
+                            <span class="text-xs uppercase tracking-wider text-slate-400">Tana Vazni Indeksi (BMI)</span>
+                            <div id="bmi-value" class="text-5xl font-black text-emerald-400 mt-2">22.9</div>
+                            <div id="bmi-category" class="inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300">
+                                Normal vazn
+                            </div>
+                        </div>
+
+                        <!-- BMI Shkalasi -->
+                        <div>
+                            <div class="flex justify-between text-xs text-slate-400 mb-1.5">
+                                <span>Ozgin</span>
+                                <span>Normal</span>
+                                <span>Ortiqcha</span>
+                                <span>Semizlik</span>
+                            </div>
+                            <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden flex">
+                                <div class="w-1/4 bg-sky-400"></div>
+                                <div class="w-1/4 bg-emerald-500"></div>
+                                <div class="w-1/4 bg-amber-400"></div>
+                                <div class="w-1/4 bg-rose-500"></div>
+                            </div>
+                        </div>
+
+                        <!-- Kaloriya Natijasi -->
+                        <div class="bg-slate-800/70 rounded-xl p-4 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-slate-300">Kunlik me'yoriy kaloriya:</span>
+                                <span id="calories-value" class="text-xl font-extrabold text-white">2 620 kkal</span>
+                            </div>
+                            <p id="health-advice" class="text-xs text-slate-400 leading-relaxed pt-1">
+                                Sizning vazningiz bo'yingizga to'liq mos keladi. Hozirgi faol turmush tarzingizni davom ettiring!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (Pastki qism) -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center space-x-2">
+                    <div class="w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center text-white">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <span class="text-lg font-extrabold">SportOlami</span>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
+                    <a href="#sport-turlari" class="hover:text-emerald-600 transition-colors">Sport turlari</a>
+                    <a href="#yangiliklar" class="hover:text-emerald-600 transition-colors">Yangiliklar</a>
+                    <a href="#maslahatlar" class="hover:text-emerald-600 transition-colors">Maslahatlar</a>
+                    <a href="#kalkulyator" class="hover:text-emerald-600 transition-colors">Kalkulyator</a>
+                </div>
+
+                <div class="flex space-x-4">
+                    <a href="#kalkulyator" aria-label="Telegram" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-emerald-600 hover:text-white transition-colors">
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                    <a href="#kalkulyator" aria-label="Instagram" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-emerald-600 hover:text-white transition-colors">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="#kalkulyator" aria-label="YouTube" class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-emerald-600 hover:text-white transition-colors">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text-center text-xs text-slate-500 mt-8 pt-8 border-t border-slate-200 dark:border-slate-800">
+                &copy; 2026 SportOlami. Barcha huquqlar himoyalangan. Sog'lom hayot sari birgalikda!
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ma'lumot Modal Oynasi (alert() o'rniga) -->
+    <div id="info-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/70 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl transform transition-all">
+            <div class="flex justify-between items-start mb-4">
+                <h3 id="modal-title" class="text-xl font-extrabold text-slate-900 dark:text-white pr-4">Sarlavha</h3>
+                <button onclick="closeModal()" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p id="modal-body" class="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
+                Matn
+            </p>
+            <div class="flex justify-end">
+                <button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-sm transition-colors">
+                    Tushunarli
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Mantiq -->
+    <script>
+        // 1. Mashhur sport turlari ma'lumotlari
+        const sportsData = [
+            {
+                id: 1,
+                name: "Futbol",
+                category: "jamoaviy",
+                categoryLabel: "Jamoaviy sport",
+                icon: "fa-futbol",
+                color: "emerald",
+                image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "Dunyodagi eng ommabop sport turi. Har bir jamoada 11 nafar o'yinchi to'pni raqib darvozasiga kiritish uchun kurashadi.",
+                details: "Futbol chidamlilik, tezkorlik va jamoaviy hamjihatlikni rivojlantiradi. Bir o'yin davomida futbolchi o'rtacha 10-12 km masofani yugurib o'tadi. O'zbekistonda futbol eng sevimli sport turi hisoblanadi."
+            },
+            {
+                id: 2,
+                name: "Basketbol",
+                category: "jamoaviy",
+                categoryLabel: "Jamoaviy sport",
+                icon: "fa-basketball",
+                color: "orange",
+                image: "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "Yuqori tezlik, sakrash va aniqlik talab qiluvchi jamoaviy o'yin. Maqsad — to'pni 3.05 metr balandlikdagi savatga tashlash.",
+                details: "Basketbol bo'y o'sishiga, koordinatsiya va tezkor qaror qabul qilish qobiliyatiga ijobiy ta'sir ko'rsatadi. Har bir jamoadan maydonda 5 nafardan o'yinchi harakatlanadi."
+            },
+            {
+                id: 3,
+                name: "Tennis",
+                category: "yakka",
+                categoryLabel: "Individual sport",
+                icon: "fa-table-tennis-paddle-ball",
+                color: "lime",
+                image: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "Raketka va maxsus koptok yordamida to'r ustidan o'ynaladigan dinamik va nafis sport turi.",
+                details: "Katta tennis butun tana mushaklarini ishlatadi, yurak-qon tomir tizimini mustahkamlaydi va diqqatni jamlashni o'rgatadi. Yakkalik yoki juftlik bahslari shaklida o'tkaziladi."
+            },
+            {
+                id: 4,
+                name: "Boks",
+                category: "yakka",
+                categoryLabel: "Yakka kurash",
+                icon: "fa-hand-fist",
+                color: "rose",
+                image: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "Maxsus qo'lqoplarda faqat qo'l zarbalari bilan olib boriladigan klassik yakka kurash sport turi.",
+                details: "Boks insonda kuchli iroda, reaksiya tezligi va o'zini himoya qilish ko'nikmalarini shakllantiradi. O'zbekiston boks maktabi jahonda yetakchi o'rinlarda turadi."
+            },
+            {
+                id: 5,
+                name: "Shaxmat",
+                category: "aqliy",
+                categoryLabel: "Aqliy sport",
+                icon: "fa-chess-knight",
+                color: "amber",
+                image: "https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=800&q=80",
+                shortDesc: "64 katakli taxtada mantiq, strategiya va sabr-toqat asosida o'ynaladigan qadimiy intellektual o'yin.",
+                details: "Shaxmat xotirani kuchaytiradi, strategik fikrlash va muammolarga yechim topish qobiliyatini rivojlantiradi. O'zbekiston shaxmatchilari Jahon shaxmat olimpiadasi chempionlari hisoblanadi."
+            }
+        ];
+
+        const sportsGrid = document.getElementById('sports-grid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Sport kartochkalarini chizish funksiyasi
+        function renderSports(filter = 'all') {
+            sportsGrid.innerHTML = '';
+            const filtered = filter === 'all' 
+                ? sportsData 
+                : sportsData.filter(sport => sport.category === filter);
+
+            filtered.forEach(sport => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl border border-slate-200 dark:border-slate-700 transition-all duration-300 flex flex-col group";
+                card.innerHTML = `
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="${sport.image}" 
+                             onerror="this.src='https://placehold.co/800x500/1e293b/10b981?text=${sport.name}'" 
+                             alt="${sport.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
+                        <span class="absolute top-4 right-4 px-3 py-1 rounded-full bg-slate-900/70 backdrop-blur-md text-white text-xs font-medium border border-white/10">
+                            ${sport.categoryLabel}
+                        </span>
+                        <div class="absolute bottom-4 left-4 flex items-center space-x-2.5 text-white">
+                            <div class="w-9 h-9 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-bold">
+                                <i class="fa-solid ${sport.icon}"></i>
+                            </div>
+                            <h3 class="text-xl font-extrabold">${sport.name}</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            ${sport.shortDesc}
+                        </p>
+                        <button onclick="openModal('${sport.name} haqida batafsil', '${sport.details.replace(/'/g, "\\'")}')" 
+                                class="mt-5 w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-700/70 hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 text-slate-800 dark:text-slate-200 font-semibold text-sm transition-colors flex items-center justify-center space-x-2">
+                            <span>Batafsil ma'lumot</span>
+                            <i class="fa-solid fa-circle-info"></i>
+                        </button>
+                    </div>
+                `;
+                sportsGrid.appendChild(card);
+            });
+        }
+
+        // Filtrlash tugmalari hodisasi
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-emerald-600', 'text-white');
+                    b.classList.add('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                });
+                btn.classList.remove('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                btn.classList.add('bg-emerald-600', 'text-white');
+                renderSports(btn.dataset.filter);
+            });
+        });
+
+        // 2. BMI va Kaloriya Kalkulyatori mantiqi
+        const healthForm = document.getElementById('health-form');
+        
+        function calculateHealth(e) {
+            if (e) e.preventDefault();
+            
+            const gender = document.getElementById('gender').value;
+            const age = parseFloat(document.getElementById('age').value);
+            const heightCm = parseFloat(document.getElementById('height').value);
+            const weightKg = parseFloat(document.getElementById('weight').value);
+            const activity = parseFloat(document.getElementById('activity').value);
+
+            if (!age || !heightCm || !weightKg) return;
+
+            // BMI hisoblash: vazn (kg) / (bo'y (m))^2
+            const heightM = heightCm / 100;
+            const bmi = (weightKg / (heightM * heightM)).toFixed(1);
+
+            // BMR (Mifflin-St Jeor formulasi) va Kunlik Kaloriya
+            let bmr = (10 * weightKg) + (6.25 * heightCm) - (5 * age);
+            bmr += (gender === 'male') ? 5 : -161;
+            const dailyCalories = Math.round(bmr * activity);
+
+            // Natijalarni UI ga chiqarish
+            const bmiValueEl = document.getElementById('bmi-value');
+            const bmiCatEl = document.getElementById('bmi-category');
+            const calValueEl = document.getElementById('calories-value');
+            const adviceEl = document.getElementById('health-advice');
+
+            bmiValueEl.textContent = bmi;
+            calValueEl.textContent = dailyCalories.toLocaleString('uz-UZ') + ' kkal';
+
+            if (bmi < 18.5) {
+                bmiValueEl.className = "text-5xl font-black text-sky-400 mt-2";
+                bmiCatEl.className = "inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-sky-500/20 text-sky-300";
+                bmiCatEl.textContent = "Vazn yetishmovchiligi";
+                adviceEl.textContent = "Vazningiz me'yordan biroz kam. Oqsilga boy mahsulotlar va kuch mashqlarini ko'paytirish tavsiya etiladi.";
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                bmiValueEl.className = "text-5xl font-black text-emerald-400 mt-2";
+                bmiCatEl.className = "inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300";
+                bmiCatEl.textContent = "Normal vazn";
+                adviceEl.textContent = "Ajoyib! Sizning vazningiz bo'yingizga to'liq mos keladi. Hozirgi faol turmush tarzingizni davom ettiring!";
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                bmiValueEl.className = "text-5xl font-black text-amber-400 mt-2";
+                bmiCatEl.className = "inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300";
+                bmiCatEl.textContent = "Ortiqcha vazn";
+                adviceEl.textContent = "Vaznni me'yorga keltirish uchun kunlik kaloriyani 300-400 kkal ga kamaytiring va kardio mashqlarini qo'shing.";
+            } else {
+                bmiValueEl.className = "text-5xl font-black text-rose-400 mt-2";
+                bmiCatEl.className = "inline-block mt-2 px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300";
+                bmiCatEl.textContent = "Semizlik darajasi";
+                adviceEl.textContent = "Salomatligingiz uchun muntazam piyoda yurish, suzish va muvozanatli parhez boshlash tavsiya etiladi.";
+            }
+        }
+
+        healthForm.addEventListener('submit', calculateHealth);
+
+        // 3. Modal oyna boshqaruvi
+        const modal = document.getElementById('info-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalBody = document.getElementById('modal-body');
+
+        function openModal(title, text) {
+            modalTitle.textContent = title;
+            modalBody.textContent = text;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // 4. Qorong'u / Yorug' mavzu (Dark Mode) va Mobil Menyu
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const htmlEl = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            htmlEl.classList.toggle('dark');
+            if (htmlEl.classList.contains('dark')) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Mobil menyudan havola bosilganda yopish
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Sahifa yuklanganda boshlang'ich holatni ishga tushirish
+        window.addEventListener('DOMContentLoaded', () => {
+            renderSports('all');
+            calculateHealth();
+        });
+    </script>
+</body>
+</html>
